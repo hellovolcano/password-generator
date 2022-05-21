@@ -36,6 +36,14 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+.instructions {
+  font-style: italic;
+}
+
+form {
+  padding: 10px;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
