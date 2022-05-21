@@ -11,30 +11,42 @@ var passwordCriteria = {
 
 var charOptions = [];
 
+var testArray = ["uppercase","lowercase"]
+
 // Assignment code here
 
 // Build the master character list based on user's input
 
 // function to check with character set to concatenate 
-var addChars = function (x) {
-   switch (x) {
-    case "uppercase":
-      charList += charSets.uppercase;
-       break;
-    case "lowercase":
-      charList += charSets.lowercase;
-      break;
-    
-    case "special":
-      charList += charSets.special;
-      break;
-    case "numbers":
-      charList += charSets.number;
-      break;
+var addChars = function(x) {
+  passwordCriteria.charList = "";
+  console.log(x);
+  for (var i = 0; i < x.length; i++) {
+    switch (x[i]) {
+      case 'uppercase':
+        passwordCriteria.charList += charSets.uppercase;
+         break;
+      case 'lowercase':
+        passwordCriteria.charList += charSets.lowercase;
+        break;
+      
+      case "special":
+        passwordCriteria.charList += charSets.special;
+        break;
+      case "numbers":
+        passwordCriteria.charList += charSets.number;
+        break;
+  
+      default:
+         break;
+     }
+  }
 
-    default:
-       break;
-   }
+
+
+
+
+   console.log(passwordCriteria.charList);
 }
 
 // Get criteria from the user's form:
@@ -63,7 +75,9 @@ function getCriteria() {
       charOptions.push(charSelection[i].value);
     }
 
-    console.log(charOptions);  
+    console.log(charOptions);
+
+    addChars(charOptions);
   }
 }
   // console.log(document.getElementById("lowercase").value); 
