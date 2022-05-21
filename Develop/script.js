@@ -1,3 +1,6 @@
+// Define the global variables
+
+// Character sets available to add to the master character list for the password
 var charSets = {
   uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   lowercase: "abcdefghijklmnopqrstuvwxyz",
@@ -5,22 +8,21 @@ var charSets = {
   special: "!#$%&()*+,-./:;<=>?@[]^_ `{|}~'"
 };
 
+// Initialize the passwordCriteria object so we can add the length to it later
 var passwordCriteria = {
   charList: ""
 };
 
+// Initialize array for the user's character option selection
 var charOptions = [];
 
-var testArray = ["uppercase","lowercase"]
-
-// Assignment code here
+//Initialize empty string -- moved this to a global variable outside the buildPW function to troubleshoot
+var pw = ""; 
 
 // Build the master character list based on user's input
-
-// function to check with character set to concatenate 
 var addChars = function(x) {
   passwordCriteria.charList = "";
-  console.log(x);
+
   for (var i = 0; i < x.length; i++) {
     switch (x[i]) {
       case 'uppercase':
@@ -41,12 +43,21 @@ var addChars = function(x) {
          break;
      }
   }
+  return passwordCriteria.charList;
+} // end of addChars function
 
 
+// build the password!
+var buildPW = function(length, charList) {
+  for (i = 0; i < length; i++) {
+    
+    var randomNum = (Math.floor(Math.random() * passwordCriteria.charList.length));
 
+    pw += charList.charAt(randomNum);
 
-
-   console.log(passwordCriteria.charList);
+  }
+  console.log(pw);
+  return pw;
 }
 
 // Get criteria from the user's form:
@@ -54,35 +65,46 @@ function getCriteria() {
   // reset variables to zero
   charOptions = [];
 
+  var charSelection = document.querySelectorAll(".charCheck:checked");
+
   passwordCriteria.length = document.getElementById("password-length").value;
 
   if (passwordCriteria.length >= 8 && passwordCriteria.length <= 128) {
-    console.log(passwordCriteria.length);
-    
+    if (charSelection == null || charSelection.length == 0) {
+      window.alert("You must select at least one options from the list above!");
+    } else {
+      // scan object to add values to an array
+        console.log("Number of items that should be added to the charOptions array: " + charSelection.length);
+        for (var i = 0; i < charSelection.length; i++ ) {
+          charOptions.push(charSelection[i].value);
+          console.log(i);
+          console.log(charSelection[i].value)
+        }
+        console.log("Character Options array length " + charOptions.length + " . Items in the array: " + charOptions)
+      }
   } else {
     window.alert("You much specify a length between 8 and 128");
   }
   
 
-  var charSelection = document.querySelectorAll(".charCheck:checked");
+  // TODO: Move these out of the getCriteria function so they don't run 
 
-  if (charSelection == null) {
-    window.alert("You must select at least one options from the list above!");
-  } else {
-    // scan object to add values to an array
-    // console.log(charSelection.length);
-    for (var i = 0; i < charSelection.length; i++ ) {
-      charOptions.push(charSelection[i].value);
-    }
+    // addChars(charOptions);
 
-    console.log(charOptions);
+    // buildPW(passwordCriteria.length,passwordCriteria.charList);
 
-    addChars(charOptions);
-  }
+  
+
+  
+} // end of getCriteria function
+
+var generatePassword = function() {
+  pw = "" //reinitialize to zero so the password doesn't keep growing with each button click!
+  getCriteria();
+  addChars(charOptions);
+  buildPW(passwordCriteria.length,passwordCriteria.charList);
+  return pw;
 }
-  // console.log(document.getElementById("lowercase").value); 
-  // console.log(document.getElementById("numbers").value);
-  // console.log(document.getElementById("special").value);
 
 
 // selectCriteria();
@@ -108,7 +130,7 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-submitCriteria.addEventListener("click", getCriteria);
+// submitCriteria.addEventListener("click", getCriteria);
 
 
 // GIVEN I need a new, secure password
