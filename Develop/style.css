@@ -17,6 +17,12 @@ body {
   background-color: #f9fbfd;
 }
 
+.dialog {
+  width: 80%;
+  margin: 0 auto;
+  border: 3px black solid;
+}
+
 .wrapper {
   padding-top: 30px;
   padding-left: 20px;

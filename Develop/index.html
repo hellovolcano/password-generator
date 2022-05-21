@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="dialog">
+      <h2>Please select your criteria for your password:</h2>
+      <form>
+        <label for="password-length">Password Length (Between 8 and 128): </label>
+        <input type="number" id="password-length" name="password-length" min="8" max="128" value=""><br>
+        <input class="charCheck" type="checkbox" id="uppercase" name="uppercase" value="uppercase">
+        <label for="uppercase"> Include Uppercase Letters</label><br>
+        <input class="charCheck" type="checkbox" id="lowercase" name="lowercase" value="lowercase">
+        <label for="lowercase"> Include Lowercase Letters</label><br>
+        <input class="charCheck" type="checkbox" id="numbers" name="numbers" value="numbers">
+        <label for="uppercase"> Include Numbers</label><br>
+        <input class="charCheck" type="checkbox" id="special" name="special" value="special">
+        <label for="uppercase"> Include Special Characters</label><br>
+        <input type="button" value="Submit Criteria" id="submitPasswordCriteria">
+      </form>
+    </div>
+
     <div class="wrapper">
       <header>
         <h1>Password Generator</h1>
