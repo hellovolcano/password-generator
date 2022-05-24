@@ -56,29 +56,25 @@ var buildPW = function(length, charList) {
     pw += charList.charAt(randomNum);
 
   }
-  console.log(pw);
   return pw;
 }
 
 // Get criteria from the user's form:
 function getCriteria() {
-  // reset variables to zero
-  charOptions = [];
+  charOptions = [];   // reset variables to zero
 
   var charSelection = document.querySelectorAll(".charCheck:checked");
 
   passwordCriteria.length = document.getElementById("password-length").value;
 
   if (passwordCriteria.length >= 8 && passwordCriteria.length <= 128) {
+    // check to ensure that the user has selected at least one option from the password criteria section
     if (charSelection == null || charSelection.length == 0) {
       window.alert("You must select at least one options from the list above!");
     } else {
       // scan object to add values to an array
-        console.log("Number of items that should be added to the charOptions array: " + charSelection.length);
         for (var i = 0; i < charSelection.length; i++ ) {
           charOptions.push(charSelection[i].value);
-          console.log(i);
-          console.log(charSelection[i].value)
         }
         console.log("Character Options array length " + charOptions.length + " . Items in the array: " + charOptions)
       }
@@ -87,34 +83,18 @@ function getCriteria() {
   }
   
 
-  // TODO: Move these out of the getCriteria function so they don't run 
-
-    // addChars(charOptions);
-
-    // buildPW(passwordCriteria.length,passwordCriteria.charList);
-
-  
-
   
 } // end of getCriteria function
 
+// container function to reset variable, obtain the user's criteria, add characters to master lists, and then build the password.
 var generatePassword = function() {
-  pw = "" //reinitialize to zero so the password doesn't keep growing with each button click!
+  pw = ""; //reinitialize to zero so the password doesn't keep growing with each button click!
   getCriteria();
   addChars(charOptions);
   buildPW(passwordCriteria.length,passwordCriteria.charList);
   return pw;
 }
 
-
-// selectCriteria();
-
-// Define a for loop for (var i = 0, i < passwordCriteria.length, i++)
-// Use Math.random() to randomly select which type of character to log based on options in passwordCriteria
-// Use Math.random() to randomly select a character from the selected type
-
-// Get references to the #submitPassword element
-var submitCriteria = document.querySelector("#submitPasswordCriteria");
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -130,21 +110,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-// submitCriteria.addEventListener("click", getCriteria);
-
-
-// GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// ------WHEN prompted for the length of the password
-// ------THEN I choose a length of at least 8 characters and no more than 128 characters
-// ------WHEN asked for character types to include in the password
-// ------THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-// ------WHEN I answer each prompt
-// ------THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
